@@ -1,34 +1,15 @@
 from flask import Flask, request, jsonify
-# from comment_classifer import *
-# from toxicResponse import ToxicResponse
+
 from Sentiment_Response import SentimentResponse
-from sentiment_analysis import *
+from transformers import pipeline
 
 app = Flask(__name__)
+pipline = pipeline("sentiment-analysis")
 
 
-# run_with_ngrok(app)
-
-# @app.route('/comment_classifier', methods=['POST'])
-# def process_list():
-#     try:
-#         # Get the list from the request
-#         data = request.json
-#         input_list = data.get('comments')
-#
-#         # Perform operations on the list (for example, reverse it)
-#         output_list = classify(input_list).tolist()
-#         print(output_list)
-#         out = []
-#         for i in range(len(input_list)):
-#             out.append(ToxicResponse(input_list[i], *output_list[i]).__dict__)
-#
-#         print(out)
-#         # Return the processed list
-#         return jsonify({'classes': out})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-#
+def sentiment_analysis(comments: list):
+    out = pipline.predict(comments)
+    return out
 
 @app.route('/sentiment_analysis', methods=['POST'])
 def sentiment():
