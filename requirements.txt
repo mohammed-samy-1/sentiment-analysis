@@ -4,4 +4,4 @@ tensorflow
 keras
 tf-keras
 transformers~=4.38.2
-pip install tensorrt
+gunicorn
